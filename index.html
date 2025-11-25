@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Modern Engine Company Menu</title>
+
+<!-- Required for iPhone safe UI layout -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #111;
+        color: #fff;
+        overflow-x: hidden;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    /* GLOBAL BUTTON */
+    .btn {
+        padding: 14px 30px;
+        background: #00b7ff;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        margin: 10px;
+        transition: 0.3s;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    .btn:hover {
+        background: #0094ca;
+        transform: scale(1.05);
+    }
+
+    /* MAIN PAGE WRAPPER */
+    .page {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+        min-height: calc(100vh - env(safe-area-inset-bottom));
+        position: relative;
+    }
+    #home { display: block; padding-top: 80px; overflow: hidden; }
+
+    /* HOME GLOW EFFECT */
+    .home-glow {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(0,170,255,0.4), transparent 70%);
+        border-radius: 50%;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: glowPulse 4s infinite ease-in-out;
+        filter: blur(20px);
+        z-index: -1;
+    }
+
+    @keyframes glowPulse {
+        0% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+        50% { opacity: 0.9; transform: translateX(-50%) scale(1.3); }
+        100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+    }
+
+    .logo {
+        width: 200px;
+        max-width: 60vw;
+        animation: fadeIn 2s ease;
+        filter: drop-shadow(0 0 14px #00baff);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.7); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    /* HOT PAGE */
+    #hotPage {
+        background: linear-gradient(180deg, #8d1a00, #220000);
+    }
+
+    .steam {
+        position: absolute;
+        width: 80px;
+        height: 140px;
+        background: url('https://i.imgur.com/Um4n9G5.png') center/contain no-repeat;
+        animation: steamRise 4s infinite ease-in-out;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    @keyframes steamRise {
+        0% { transform: translateY(20px) scale(0.8); opacity: 0.4; }
+        50% { transform: translateY(-40px) scale(1.1); opacity: 1; }
+        100% { transform: translateY(20px) scale(0.8); opacity: 0.4; }
+    }
+
+    /* COLD PAGE */
+    #coldPage {
+        background: linear-gradient(180deg, #00679c, #011b2f);
+    }
+
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 20px;
+        animation: fall 6s linear forwards;
+        pointer-events: none;
+        will-change: transform;
+    }
+
+    @keyframes fall {
+        0% { transform: translate3d(0, -10px, 0) rotate(0deg); }
+        100% { transform: translate3d(0, 110vh, 0) rotate(360deg); }
+    }
+
+    .windmill {
+        width: 130px;
+        margin: 0 auto;
+        animation: spin 5s linear infinite;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* MENU GRID */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .item {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 15px;
+        border-radius: 12px;
+        transition: 0.3s;
+        backdrop-filter: blur(6px);
+    }
+
+    .item:hover {
+        transform: translateY(-5px) scale(1.03);
+    }
+
+    .item img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    /* MOBILE FIXES */
+    @media (max-width: 600px) {
+        .btn { font-size: 16px; padding: 12px 20px; }
+        .menu-title { font-size: 30px; }
+        .item img { height: 120px; }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO with iOS unlock fix -->
+<audio id="bgMusic" loop playsinline>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f6b597a5a8.mp3?filename=relaxing-music-117708.mp3" type="audio/mp3">
+</audio>
+
+<script>
+// iOS prevents autoplay → unlock on first tap
+document.addEventListener("touchstart", () => {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) music.play();
+}, { once:true });
+</script>
+
+<!-- HOME PAGE -->
+<div id="home" class="page">
+    <div class="home-glow"></div>
+
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg">
+    <h1 style="font-size:50px;">Modern Engine Company</h1>
+    <p style="font-size:22px;">Choose drink type</p>
+
+    <button class="btn" onclick="showPage('hotPage')">🔥 Hot</button>
+    <button class="btn" onclick="showPage('coldPage')">❄ Cold</button>
+</div>
+
+<!-- HOT PAGE -->
+<div id="hotPage" class="page">
+    <h1 class="menu-title">🔥 Hot Drinks</h1>
+
+    <div class="steam" style="left: 10%; top: 10%;"></div>
+    <div class="steam" style="left: 50%; top: 20%; animation-delay: 1s;"></div>
+    <div class="steam" style="left: 80%; top: 15%; animation-delay: 2s;"></div>
+
+    <div class="grid">
+        <div class="item"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348"><h3>Espresso</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"><h3>Cappuccino</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085"><h3>Latte</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1570968915860-54d5c3cf0f55"><h3>Hot Chocolate</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1521302080334-4bebac276ba2"><h3>Macchiato</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1578678800348-f196d3fa0c19"><h3>Mocha</h3></div>
+    </div>
+
+    <button class="btn back-btn" onclick="stopSnow(); showPage('home')">⬅ Back</button>
+</div>
+
+<!-- COLD PAGE -->
+<div id="coldPage" class="page">
+    <img class="windmill" src="https://i.imgur.com/uCq5osG.png">
+    <h1 class="menu-title">❄ Cold Drinks</h1>
+
+    <div class="grid">
+        <div class="item"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87"><h3>Iced Latte</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1568044852430-9c5f9c89a6d4"><h3>Cold Brew</h3></div>
+        <div class="item"><img src="https://images.unsplash.com/photo-1577803645773-f96470509666"><h3>Frozen Caramel</h3></div>
+    </div>
+
+    <button class="btn back-btn" onclick="stopSnow(); showPage('home')">⬅ Back</button>
+</div>
+
+<script>
+/* PAGE SWITCHER */
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    document.getElementById(pageId).style.display = 'block';
+
+    if (pageId === "coldPage") startSnow();
+}
+
+/* SNOW EFFECT */
+function startSnow() {
+    stopSnow(); // reset snow when re-entering
+
+    for (let i = 0; i < 25; i++) {
+        let s = document.createElement("div");
+        s.classList.add("snowflake");
+        s.innerHTML = "❄";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.animationDuration = 3 + Math.random() * 3 + "s";
+        s.style.fontSize = 14 + Math.random() * 16 + "px";
+        s.style.transform = `translateX(${Math.random()*20 - 10}px)`;
+        document.body.appendChild(s);
+
+        setTimeout(() => s.remove(), 7000);
+    }
+}
+
+function stopSnow() {
+    document.querySelectorAll(".snowflake").forEach(f => f.remove());
+}
+</script>
+
+</body>
+</html>
