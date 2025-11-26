@@ -65,13 +65,11 @@ body {
 }
 
 /* ========== GRID ========== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
-    padding: 20px 10px;
+.grid { /* كما عندك */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
 }
-
 .item {
     background: rgba(255,255,255,0.1);
     padding: 10px;
@@ -81,11 +79,19 @@ body {
     position: relative;
 }
 .item img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    border-radius: 12px;
+  width: 120px;        /* عرض ثابت */
+  height: 120px;       /* ارتفاع ثابت */
+  object-fit: contain;  /* يحافظ على كامل الصورة بدون قص */
+  background: rgba(0,0,0,0.4);    /* خلفية بيضاء للشفافة */
+  padding: 10px;       /* مساحة صغيرة حول الصورة */
+  border-radius: 10px; /* شكل جميل */
+  display: block;
+  margin: 0 auto;
 }
+    .item h3 {
+      margin: 10px 5px;
+      font-size: 16px;
+    }
 .item:hover {
     transform: translateY(-3px) scale(1.02);
 }
@@ -334,7 +340,7 @@ const hotDrinks = [
     name_tr: "Espresso",
     name_de: "Espresso",
     name_ku: "ئێسپریسو",
-    img: "espresso.png",
+    img: "https://down-yuantu.pngtree.com/element_our/20240521/bg/21e453300ea6c.png?e=1764156351&st=YTBiOTkxZTg0ZWIxZDZhMzdmY2ZhMDFmYTQ1YWZlY2Y&n=%E2%80%94Pngtree%E2%80%94espresso+cup+with+a+rich_15473319.png",
     popup: "espresso-popup.png",
     ingredients_en: "Coffee beans, Water",
     ingredients_ar: "حبوب القهوة، ماء",
@@ -349,7 +355,7 @@ const hotDrinks = [
     name_tr: "Cappuccino",
     name_de: "Cappuccino",
     name_ku: "کاپوچینو",
-    img: "cappuccino.png",
+    img: "https://down-yuantu.pngtree.com/element_our/20250325/bg/4738320bfa276.png?e=1764156420&st=YmRjMjNiYzE5NGU3MDlkNGY1NmJjMjcwNjIxZjMzMDI&n=%E2%80%94Pngtree%E2%80%94assorted+coffee+cups+including+cappuccino_20762869.png",
     popup: "cappuccino-popup.png",
     ingredients_en: "Espresso, Steamed milk, Milk foam",
     ingredients_ar: "اسبريسو، حليب مبخر، رغوة الحليب",
@@ -364,7 +370,7 @@ const hotDrinks = [
     name_tr: "Latte",
     name_de: "Latte",
     name_ku: "لاتێ",
-    img: "latte.png",
+    img: "https://down-yuantu.pngtree.com/element_our/20250325/bg/4738320bfa276.png?e=1764156420&st=YmRjMjNiYzE5NGU3MDlkNGY1NmJjMjcwNjIxZjMzMDI&n=%E2%80%94Pngtree%E2%80%94assorted+coffee+cups+including+cappuccino_20762869.png",
     popup: "latte-popup.png",
     ingredients_en: "Espresso, Milk",
     ingredients_ar: "اسبريسو، حليب",
@@ -379,7 +385,7 @@ const hotDrinks = [
     name_tr: "Sıcak Çikolata",
     name_de: "Heiße Schokolade",
     name_ku: "چۆکلیت گەرم",
-    img: "hotchoco.png",
+    img: "https://down-yuantu.pngtree.com/element_our/20241223/bg/ba6761d15ab91.png?e=1764156796&st=ZmVmNGIxMmE5NjhhNmM0NzBlNWEwNzBhMzIwZDE2MDY&n=%E2%80%94Pngtree%E2%80%94delicious+cup+of+hot+chocolate_20038438.png",
     popup: "hotchoco-popup.png",
     ingredients_en: "Cocoa, Milk, Sugar",
     ingredients_ar: "كاكاو، حليب، سكر",
@@ -389,42 +395,12 @@ const hotDrinks = [
   },
 
   {
-    name_en: "Macchiato",
-    name_ar: "ماكياتو",
-    name_tr: "Macchiato",
-    name_de: "Macchiato",
-    name_ku: "ماکیاتو",
-    img: "macchiato.png",
-    popup: "macchiato-popup.png",
-    ingredients_en: "Espresso, Foam",
-    ingredients_ar: "اسبريسو، رغوة",
-    ingredients_tr: "Espresso, Köpük",
-    ingredients_de: "Espresso, Schaum",
-    ingredients_ku: "ئێسپریسو، فۆم"
-  },
-
-  {
-    name_en: "Mocha",
-    name_ar: "موكا",
-    name_tr: "Mocha",
-    name_de: "Mokka",
-    name_ku: "مۆکا",
-    img: "mocha.png",
-    popup: "mocha-popup.png",
-    ingredients_en: "Espresso, Cocoa, Milk",
-    ingredients_ar: "اسبريسو، كاكاو، حليب",
-    ingredients_tr: "Espresso, Kakao, Süt",
-    ingredients_de: "Espresso, Kakao, Milch",
-    ingredients_ku: "ئێسپریسو، کاكاو، شیر"
-  },
-
-  {
     name_en: "Iraqi Tea",
     name_ar: "شاي عراقي",
     name_tr: "Irak Çayı",
     name_de: "Irakischer Tee",
     name_ku: "چەی عێراقی",
-    img: "iraqitea.png",
+    img: "https://down-yuantu.pngtree.com/element_our/20241219/bg/f9ae7fb16564b.png?e=1764156733&st=NDlmODA0NTYxMTA2MWUxODZhY2JlYzkxNTNkZjE2NWM&n=%E2%80%94Pngtree%E2%80%94hot+tea+in+a+transparent_19991454.png",
     popup: "iraqitea-popup.png",
     ingredients_en: "Black tea, Cardamom, Sugar",
     ingredients_ar: "شاي أسود، هيل، سكر",
@@ -436,49 +412,35 @@ const hotDrinks = [
 
 
 const coldDrinks = [
-  {
-    name_en: "Iced Latte",
-    name_ar: "لاتيه مثلج",
-    name_tr: "Buzlu Latte",
-    name_de: "Iced Latte",
-    name_ku: "لاتێی سارد",
-    img: "icedlatte.png",
-    popup: "icedlatte-popup.png",
-    ingredients_en: "Espresso, Milk, Ice",
-    ingredients_ar: "اسبريسو، حليب، ثلج",
-    ingredients_tr: "Espresso, Süt, Buz",
-    ingredients_de: "Espresso, Milch, Eis",
-    ingredients_ku: "ئێسپریسو، شیر، بەفر"
+
+ {
+    name_en: "Orange Juice",
+    name_ar: "عصير برتقال",
+    name_tr: "Portakal Suyu",
+    name_de: "Orangensaft",
+    name_ku: "شەربەتی پۆرتەقال",
+    img: "https://down-yuantu.pngtree.com/element_our/20241213/bg/951bff93fde2c.png?e=1764155926&st=NDQ0YTY5MDEyMDI3ZTI0NTE2ZmIxZTA4NmYyNDM3Zjc&n=—Pngtree—fresh+orange+fruit+juice+clipart_19988837.png",
+    popup: "orangejuice-popup.png",
+    ingredients_en: "Fresh oranges",
+    ingredients_ar: "برتقال طازج",
+    ingredients_tr: "Taze portakallar",
+    ingredients_de: "Frische Orangen",
+    ingredients_ku: "پۆرتەقال تازە"
   },
 
   {
-    name_en: "Cold Brew",
-    name_ar: "كولد برو",
-    name_tr: "Cold Brew",
-    name_de: "Cold Brew",
-    name_ku: "کۆلد برو",
-    img: "coldbrew.png",
-    popup: "coldbrew-popup.png",
-    ingredients_en: "Coffee beans, Cold water, Ice",
-    ingredients_ar: "حبوب القهوة، ماء بارد، ثلج",
-    ingredients_tr: "Kahve çekirdekleri, Soğuk su, Buz",
-    ingredients_de: "Kaffeebohnen, Kaltes Wasser, Eis",
-    ingredients_ku: "دانە قاوە، ئاوی سەرەد، بەفر"
-  },
-
-  {
-    name_en: "Frozen Caramel",
-    name_ar: "كراميل مثلج",
-    name_tr: "Karamelli Buzlu",
-    name_de: "Gefrorenes Karamell",
-    name_ku: "کارامێلی سارد",
-    img: "frozencaramel.png",
-    popup: "frozencaramel-popup.png",
-    ingredients_en: "Coffee, Caramel, Ice, Milk",
-    ingredients_ar: "قهوة، كراميل، ثلج، حليب",
-    ingredients_tr: "Kahve, Karamel, Buz, Süt",
-    ingredients_de: "Kaffee, Karamell, Eis, Milch",
-    ingredients_ku: "قاوە، کارامێل، بەفر، شیر"
+    name_en: "Pomegranate Juice",
+    name_ar: "عصير رمان",
+    name_tr: "Nar Suyu",
+    name_de: "Granatapfelsaft",
+    name_ku: "شەربەتی هەڵو",
+    img: "https://png.pngtree.com/png-vector/20231004/ourmid/pngtree-pomegranate-juice-isolated-on-a-white-drink-png-image_10070269.png",
+    popup: "pomegranatejuice-popup.png",
+    ingredients_en: "Fresh pomegranates",
+    ingredients_ar: "رمان طازج",
+    ingredients_tr: "Taze narlar",
+    ingredients_de: "Frische Granatäpfel",
+    ingredients_ku: "هەڵو تازە"
   },
 
   {
@@ -487,7 +449,7 @@ const coldDrinks = [
     name_tr: "Su",
     name_de: "Wasser",
     name_ku: "ئاو",
-    img: "water.png",
+    img: "https://down-yuantu.pngtree.com/element_our/20240711/bg/567504cd012af.png?e=1764156024&st=M2UyMzllMjNlYjcxZjgzOTJjYzA1MDU0YzRhZGU4OWU&n=—Pngtree—clear+water+glass_16197910.png",
     popup: "water-popup.png",
     ingredients_en: "Fresh water",
     ingredients_ar: "ماء نقي",
@@ -526,8 +488,8 @@ const translations = {
         coldBtn: "❄ Cold",
         hotTitle: "🔥 Hot Drinks",
         coldTitle: "❄ Cold Drinks",
-        drinkNamesHot: ['Espresso','Cappuccino','Latte','Hot Chocolate','Macchiato','Mocha','Iraqi Tea'],
-        drinkNamesCold: ['Iced Latte','Cold Brew','Frozen Caramel','Water']
+        drinkNamesHot: ['Espresso','Cappuccino','Latte','Hot Chocolate','Iraqi Tea'],
+        drinkNamesCold: ['Orange Juice','Pomegranate Juice','Water']
     },
 
     ar: {
@@ -537,8 +499,8 @@ const translations = {
         coldBtn: "❄ بارد",
         hotTitle: "🔥 مشروبات ساخنة",
         coldTitle: "❄ مشروبات باردة",
-        drinkNamesHot: ['اسبريسو','كابتشينو','لاتيه','هوت شوكولاتة','ماكياتو','موكا','شاي عراقي'],
-        drinkNamesCold: ['لاتيه مثلج','كولد برو','كراميل مثلج','ماء']
+        drinkNamesHot: ['اسبريسو','كابتشينو','لاتيه','هوت شوكولاتة','شاي عراقي'],
+        drinkNamesCold: ['عصير برتقال','عصير رمان','ماء']
     },
 
     tr: {
@@ -548,8 +510,8 @@ const translations = {
         coldBtn: "❄ Soğuk",
         hotTitle: "🔥 Sıcak İçecekler",
         coldTitle: "❄ Soğuk İçecekler",
-        drinkNamesHot: ['Espresso','Cappuccino','Latte','Sıcak Çikolata','Macchiato','Mocha','Irak Çayı'],
-        drinkNamesCold: ['Buzlu Latte','Cold Brew','Karamelli Buzlu','Su']
+        drinkNamesHot: ['Espresso','Cappuccino','Latte','Sıcak Çikolata','Irak Çayı'],
+        drinkNamesCold: ['Portakal Suyu','Nar Suyu','Su']
     },
 
     de: {
@@ -559,20 +521,20 @@ const translations = {
         coldBtn: "❄ Kalt",
         hotTitle: "🔥 Heiße Getränke",
         coldTitle: "❄ Kalte Getränke",
-        drinkNamesHot: ['Espresso','Cappuccino','Latte','Heiße Schokolade','Macchiato','Mocha','Irakischer Tee'],
-        drinkNamesCold: ['Iced Latte','Cold Brew','Gefrorenes Karamell','Wasser']
+        drinkNamesHot: ['Espresso','Cappuccino','Latte','Heiße Schokolade','Irakischer Tee'],
+        drinkNamesCold: ['Orangensaft','Granatapfelsaft','Wasser']
     },
 
-ku: {
-    title: "کۆمپانیای موتورێکی نوێ",
-    subtitle: "جۆری خواردنەوە هەڵبژێرە",
-    hotBtn: "🔥 گـرم",
-    coldBtn: "❄ سـارد",
-    hotTitle: "🔥 خواردنەوە گـەرم",
-    coldTitle: "❄ خواردنەوە سـارد",
-    drinkNamesHot: ['ئێسپریسو','کاپوچینو','لاتێ','چۆکلیت گـەرم','ماکیاتو','مۆکا','چەی عێراقی'],
-    drinkNamesCold: ['لاتێی سارد','کۆلد برو','کارامێلی سارد','ئاو']
-}
+    ku: {
+        title: "کۆمپانیای موتورێکی نوێ",
+        subtitle: "جۆری خواردنەوە هەڵبژێرە",
+        hotBtn: "🔥 گـرم",
+        coldBtn: "❄ سـارد",
+        hotTitle: "🔥 خواردنەوە گـەرم",
+        coldTitle: "❄ خواردنەوە سـارد",
+        drinkNamesHot: ['ئێسپریسو','کاپوچینو','لاتێ','چۆکلیت گـەرم','چەی عێراقی'],
+        drinkNamesCold: ['شەربەتی پۆرتەقال','شەربەتی هەڵو','ئاو']
+    }
 };
 
 function setLanguage(l) {
@@ -675,10 +637,6 @@ function closePopup(){
     document.body.style.overflow = 'auto'; // allow scroll again
 }
 
-function translate(name){
-    const map={'Espresso':'اسبريسو','Cappuccino':'كابتشينو','Latte':'لاتيه','Hot Chocolate':'هوت شوكولاتة','Macchiato':'ماكياتو','Mocha':'موكا','Iraqi Tea':'شاي عراقي','Iced Latte':'لاتيه مثلج','Cold Brew':'كولد برو','Frozen Caramel':'كراميل مثلج','Water':'ماء'};
-    return map[name]||name;
-}
 
 let touchStartX = 0;
 let touchStartY = 0;
