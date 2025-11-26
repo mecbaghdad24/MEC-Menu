@@ -3,261 +3,594 @@
 <head>
 <meta charset="UTF-8">
 <title>Modern Engine Company Menu</title>
-
-<!-- Required for iPhone safe UI layout -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-
 <style>
-    body {
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-        background: #111;
-        color: #fff;
-        overflow-x: hidden;
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
-    }
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #111;
+    color: #fff;
+    overflow-x: hidden;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    overflow: hidden; /* Prevents all scrolling */
 
-    /* GLOBAL BUTTON */
-    .btn {
-        padding: 14px 30px;
-        background: #00b7ff;
-        border: none;
-        border-radius: 10px;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-        margin: 10px;
-        transition: 0.3s;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-    .btn:hover {
-        background: #0094ca;
-        transform: scale(1.05);
-    }
+}
 
-    /* MAIN PAGE WRAPPER */
-    .page {
-        display: none;
-        text-align: center;
-        padding: 40px 20px;
-        min-height: calc(100vh - env(safe-area-inset-bottom));
-        position: relative;
-    }
-    #home { display: block; padding-top: 80px; overflow: hidden; }
 
-    /* HOME GLOW EFFECT */
-    .home-glow {
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        background: radial-gradient(circle, rgba(0,170,255,0.4), transparent 70%);
-        border-radius: 50%;
-        top: 15%;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: glowPulse 4s infinite ease-in-out;
-        filter: blur(20px);
-        z-index: -1;
-    }
 
-    @keyframes glowPulse {
-        0% { opacity: 0.4; transform: translateX(-50%) scale(1); }
-        50% { opacity: 0.9; transform: translateX(-50%) scale(1.3); }
-        100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
-    }
+.btn {
+    padding: 16px 34px;
+    background: #00b7ff;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.btn:hover { background: #0094ca; transform: scale(1.05); }
+/* PAGE WRAPPER */
+.page { display: none; text-align: center; padding: 40px 20px; min-height: calc(100vh - env(safe-area-inset-bottom)); position: relative; }
+#home { display: block; padding-top: 80px; overflow: hidden; }
 
-    .logo {
-        width: 200px;
-        max-width: 60vw;
-        animation: fadeIn 2s ease;
-        filter: drop-shadow(0 0 14px #00baff);
-    }
+/* HOME BACKGROUND GRADIENT */
+.home-background {
+    position:absolute; top:0; left:0; right:0; bottom:0;
+    background: linear-gradient(-45deg, #111, #222, #111, #333);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    z-index:-3;
+}
+@keyframes gradientBG { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;} }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.7); }
-        to { opacity: 1; transform: scale(1); }
-    }
+/* HOME FLOATING LIGHT EFFECT */
+.home-light {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0,255,200,0.15), transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: moveLight 8s ease-in-out infinite;
+    z-index:-2;
+}
+@keyframes moveLight {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(50px,30px) scale(1.3); }
+    100% { transform: translate(0,0) scale(1); }
+}
 
-    /* HOT PAGE */
-    #hotPage {
-        background: linear-gradient(180deg, #8d1a00, #220000);
-    }
+/* HOME GLOW EFFECT */
+.home-glow {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(0,170,255,0.4), transparent 20%);
+    border-radius: 50%;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: glowPulse 4s infinite ease-in-out;
+    filter: blur(20px);
+    z-index: -1;
+}
+@keyframes glowPulse {0% {opacity:0.2; transform:translateX(-50%) scale(1);}50% {opacity:0.3; transform:translateX(-50%) scale(1.3);}100% {opacity:0.4; transform:translateX(-50%) scale(1);} }
 
-    .steam {
-        position: absolute;
-        width: 80px;
-        height: 140px;
-        background: url('https://i.imgur.com/Um4n9G5.png') center/contain no-repeat;
-        animation: steamRise 4s infinite ease-in-out;
-        opacity: 0.6;
-        pointer-events: none;
-    }
+.logo { width: 200px; max-width: 60vw; animation: fadeIn 5s ease; filter: drop-shadow(0 0 14px #00baff);}
+@keyframes fadeIn { from {opacity:0; transform:scale(0.7);} to {opacity:1; transform:scale(1);} }
 
-    @keyframes steamRise {
-        0% { transform: translateY(20px) scale(0.8); opacity: 0.4; }
-        50% { transform: translateY(-40px) scale(1.1); opacity: 1; }
-        100% { transform: translateY(20px) scale(0.8); opacity: 0.4; }
-    }
+/* HOT PAGE */
+#hotPage { background: linear-gradient(180deg, #8d1a00, #220000); overflow:hidden; }
 
-    /* COLD PAGE */
-    #coldPage {
-        background: linear-gradient(180deg, #00679c, #011b2f);
-    }
+.steam, .hotParticle {
+    position:absolute;
+    pointer-events:none;
+}
+.steam { width:80px; height:140px; background:url('https://i.imgur.com/Um4n9G5.png') center/contain no-repeat; animation:steamRise 4s infinite ease-in-out; opacity:0.6; filter: blur(3px);}
+@keyframes steamRise {0% {transform:translateY(20px) scale(0.8);opacity:0.4;} 50% {transform:translateY(-40px) scale(1.1);opacity:1;} 100% {transform:translateY(20px) scale(0.8);opacity:0.4;} }
 
-    .snowflake {
-        position: fixed;
-        top: -10px;
-        color: white;
-        font-size: 20px;
-        animation: fall 6s linear forwards;
-        pointer-events: none;
-        will-change: transform;
-    }
+.hotParticle { width:10px; height:10px; background:rgba(255,200,50,0.6); border-radius:50%; animation:particleRise 5s linear infinite; }
+@keyframes particleRise {0%{transform:translateY(0px) scale(0.5);opacity:0.5;}50%{transform:translateY(-100px) scale(1);opacity:1;}100%{transform:translateY(-200px) scale(0.5);opacity:0;}}
 
-    @keyframes fall {
-        0% { transform: translate3d(0, -10px, 0) rotate(0deg); }
-        100% { transform: translate3d(0, 110vh, 0) rotate(360deg); }
-    }
+/* COLD PAGE */
+#coldPage { background: linear-gradient(180deg, #00679c, #011b2f); }
+.snowflake { position: fixed; top:-10px; color:white; font-size:20px; animation:fall linear infinite; pointer-events:none; will-change: transform; }
+@keyframes fall { 0% { transform: translate3d(0,-10px,0) rotate(0deg); } 100% { transform: translate3d(0,110vh,0) rotate(360deg); } }
 
-    .windmill {
-        width: 130px;
-        margin: 0 auto;
-        animation: spin 5s linear infinite;
-    }
+.windmill { width:130px; margin:0 auto; animation: spin 5s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
+/* MENU GRID */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:20px; padding:20px; }
+.item { background: rgba(255,255,255,0.15); padding:15px; border-radius:12px; transition:0.3s; backdrop-filter:blur(6px); cursor:pointer; position: relative; }
+.item:hover { transform: translateY(-5px) scale(1.03); }
 
-    /* MENU GRID */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
+/* Steam blur overlay on hot drinks */
+.item.hot::after {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: radial-gradient(rgba(255,255,255,0.15), transparent 70%);
+    filter: blur(10px);
+    opacity:0.3;
+    pointer-events:none;
+    border-radius:12px;
+}
 
-    .item {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 15px;
-        border-radius: 12px;
-        transition: 0.3s;
-        backdrop-filter: blur(6px);
-    }
 
-    .item:hover {
-        transform: translateY(-5px) scale(1.03);
-    }
+.item img {
+    width: 100%;          /* full width of the grid item */
+    height: 180px;        /* fixed height for all images */
+    object-fit: cover;    /* crop/scale image to fill without stretching */
+    border-radius: 12px;
+}
 
-    .item img {
-        width: 100%;
-        height: 140px;
-        object-fit: cover;
-        border-radius: 12px;
-    }
 
-    /* MOBILE FIXES */
-    @media (max-width: 600px) {
-        .btn { font-size: 16px; padding: 12px 20px; }
-        .menu-title { font-size: 30px; }
-        .item img { height: 120px; }
-    }
+
+/* IMAGE CONTAINER */
+.menu-img-container { position: relative; }
+.menu-img-container img { width:100%; height:140px; object-fit:cover; border-radius:12px; }
+
+/* POPUP MODAL */
+#popup { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); z-index: 9999; justify-content:center; align-items:center; padding:20px; }
+#popup .popup-content { background:#222; border-radius:15px; max-width:400px; width:100%; text-align:center; padding:20px; }
+#popup img { width:80%; border-radius:12px; margin-bottom:10px; }
+
+/* BACK BUTTON */
+.back-btn { background:#444; }
+.back-btn:hover { background:#666; }
+
+/* MOBILE FIXES */
+@media(max-width:600px){
+    .btn{font-size:22px; padding:20px 32px;}
+    .menu-title{font-size:28px;}
+    .item img{height:120px;}
+    #popup .popup-content{width:90%; padding:15px;}
+}
+
+
+#popup img {
+    width: 80%;       /* or fixed px like 300px */
+    max-height: 300px; 
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
 </style>
 </head>
-
 <body>
 
-<!-- AUDIO with iOS unlock fix -->
-<audio id="bgMusic" loop playsinline>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f6b597a5a8.mp3?filename=relaxing-music-117708.mp3" type="audio/mp3">
-</audio>
 
+<!-- LANGUAGE PAGE (FIXED & CLEAN) -->
+<div id="languagePage" class="page" style="display:block; padding-top:120px; text-align:center;">
+
+    <h1 style="font-size:40px; margin-bottom:30px;">Choose Your Language</h1>
+
+    <button class="btn" onclick="setLanguage('en')">
+        <img src="https://flagcdn.com/w40/gb.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
+        English
+    </button>
+
+    <button class="btn" onclick="setLanguage('ar')">
+        <img src="https://flagcdn.com/w40/sa.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
+        العربية
+    </button>
+
+    <button class="btn" onclick="setLanguage('tr')">
+        <img src="https://flagcdn.com/w40/tr.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
+        Türkçe
+    </button>
+
+    <button class="btn" onclick="setLanguage('de')">
+        <img src="https://flagcdn.com/w40/de.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
+        Deutsch
+    </button>
+<button class="btn" onclick="setLanguage('ku')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_Kurdistan.svg"
+         style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
+    کوردی
+</button>
+
+
+</div>
+
+
+<!-- HOME BACKGROUND -->
+<div class="home-background"></div>
+<div class="home-light" style="top:20%; left:15%;"></div>
+<div class="home-light" style="top:40%; left:60%; animation-delay:2s;"></div>
+<div class="home-light" style="top:70%; left:35%; animation-delay:4s;"></div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop playsinline>
+  <source src="https://youtu.be/CJLWULpdFxs" type="audio/mp3">
+</audio>
 <script>
-// iOS prevents autoplay → unlock on first tap
-document.addEventListener("touchstart", () => {
-    const music = document.getElementById("bgMusic");
-    if (music.paused) music.play();
-}, { once:true });
+document.addEventListener("touchstart",()=>{const music=document.getElementById("bgMusic"); if(music.paused) music.play();},{once:true});
 </script>
+
+<!-- POPUP MODAL -->
+<div id="popup">
+    <div class="popup-content">
+        <img id="popupImg" src="">
+        <h3 id="popupName"></h3>
+        <p id="popupIngredients"></p>
+        <button class="btn" onclick="closePopup()">⬅</button>
+    </div>
+</div>
 
 <!-- HOME PAGE -->
 <div id="home" class="page">
     <div class="home-glow"></div>
-
     <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg">
-    <h1 style="font-size:50px;">Modern Engine Company</h1>
-    <p style="font-size:22px;">Choose drink type</p>
-
-    <button class="btn" onclick="showPage('hotPage')">🔥 Hot</button>
-    <button class="btn" onclick="showPage('coldPage')">❄ Cold</button>
+    <h1 id="title" style="font-size:50px;">Modern Engine Company</h1>
+    <p id="subtitle" style="font-size:22px;">Choose drink type</p>
+    <button class="btn" onclick="showPage('hotPage')" id="hotBtn">🔥 Hot</button>
+    <button class="btn" onclick="showPage('coldPage')" id="coldBtn">❄ Cold</button>
 </div>
 
 <!-- HOT PAGE -->
 <div id="hotPage" class="page">
-    <h1 class="menu-title">🔥 Hot Drinks</h1>
-
-    <div class="steam" style="left: 10%; top: 10%;"></div>
-    <div class="steam" style="left: 50%; top: 20%; animation-delay: 1s;"></div>
-    <div class="steam" style="left: 80%; top: 15%; animation-delay: 2s;"></div>
-
-    <div class="grid">
-        <div class="item"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348"><h3>Espresso</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"><h3>Cappuccino</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085"><h3>Latte</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1570968915860-54d5c3cf0f55"><h3>Hot Chocolate</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1521302080334-4bebac276ba2"><h3>Macchiato</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1578678800348-f196d3fa0c19"><h3>Mocha</h3></div>
-    </div>
-
-    <button class="btn back-btn" onclick="stopSnow(); showPage('home')">⬅ Back</button>
+    <h1 class="menu-title" id="hotTitle">🔥 Hot Drinks</h1>
+    <div class="steam" style="left:10%; top:10%;"></div>
+    <div class="steam" style="left:50%; top:20%; animation-delay:1s;"></div>
+    <div class="steam" style="left:80%; top:15%; animation-delay:2s;"></div>
+    <div id="hotParticles"></div>
+    <div class="grid" id="hotGrid"></div>
+    <button class="btn back-btn" onclick="stopSnow(); stopParticles(); showPage('home')">⬅</button>
 </div>
 
 <!-- COLD PAGE -->
 <div id="coldPage" class="page">
     <img class="windmill" src="https://i.imgur.com/uCq5osG.png">
-    <h1 class="menu-title">❄ Cold Drinks</h1>
-
-    <div class="grid">
-        <div class="item"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87"><h3>Iced Latte</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1568044852430-9c5f9c89a6d4"><h3>Cold Brew</h3></div>
-        <div class="item"><img src="https://images.unsplash.com/photo-1577803645773-f96470509666"><h3>Frozen Caramel</h3></div>
-    </div>
-
-    <button class="btn back-btn" onclick="stopSnow(); showPage('home')">⬅ Back</button>
+    <h1 class="menu-title" id="coldTitle">❄ Cold Drinks</h1>
+    <div class="grid" id="coldGrid"></div>
+    <button class="btn back-btn" onclick="stopSnow(); showPage('home')">⬅</button>
 </div>
 
 <script>
-/* PAGE SWITCHER */
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-    document.getElementById(pageId).style.display = 'block';
+/* DRINK DATA with separate popup image */
+const hotDrinks = [
+  {
+    name_en: "Espresso",
+    name_ar: "اسبريسو",
+    name_tr: "Espresso",
+    name_de: "Espresso",
+    name_ku: "ئێسپریسو",
+    img: "espresso.png",
+    popup: "espresso-popup.png",
+    ingredients_en: "Coffee beans, Water",
+    ingredients_ar: "حبوب القهوة، ماء",
+    ingredients_tr: "Kahve çekirdekleri, Su",
+    ingredients_de: "Kaffeebohnen, Wasser",
+    ingredients_ku: "دانە قاوە، ئاو"
+  },
 
-    if (pageId === "coldPage") startSnow();
+  {
+    name_en: "Cappuccino",
+    name_ar: "كابتشينو",
+    name_tr: "Cappuccino",
+    name_de: "Cappuccino",
+    name_ku: "کاپوچینو",
+    img: "cappuccino.png",
+    popup: "cappuccino-popup.png",
+    ingredients_en: "Espresso, Steamed milk, Milk foam",
+    ingredients_ar: "اسبريسو، حليب مبخر، رغوة الحليب",
+    ingredients_tr: "Espresso, Buharda süt, Süt köpüğü",
+    ingredients_de: "Espresso, Gedämpfte Milch, Milchschaum",
+    ingredients_ku: "ئێسپریسو، شيری گەرماوە، فۆمی شیر"
+  },
+
+  {
+    name_en: "Latte",
+    name_ar: "لاتيه",
+    name_tr: "Latte",
+    name_de: "Latte",
+    name_ku: "لاتێ",
+    img: "latte.png",
+    popup: "latte-popup.png",
+    ingredients_en: "Espresso, Milk",
+    ingredients_ar: "اسبريسو، حليب",
+    ingredients_tr: "Espresso, Süt",
+    ingredients_de: "Espresso, Milch",
+    ingredients_ku: "ئێسپریسو، شیر"
+  },
+
+  {
+    name_en: "Hot Chocolate",
+    name_ar: "هوت شوكولاتة",
+    name_tr: "Sıcak Çikolata",
+    name_de: "Heiße Schokolade",
+    name_ku: "چۆکلیت گەرم",
+    img: "hotchoco.png",
+    popup: "hotchoco-popup.png",
+    ingredients_en: "Cocoa, Milk, Sugar",
+    ingredients_ar: "كاكاو، حليب، سكر",
+    ingredients_tr: "Kakao, Süt, Şeker",
+    ingredients_de: "Kakao, Milch, Zucker",
+    ingredients_ku: "کاكاو، شیر، شەکر"
+  },
+
+  {
+    name_en: "Macchiato",
+    name_ar: "ماكياتو",
+    name_tr: "Macchiato",
+    name_de: "Macchiato",
+    name_ku: "ماکیاتو",
+    img: "macchiato.png",
+    popup: "macchiato-popup.png",
+    ingredients_en: "Espresso, Foam",
+    ingredients_ar: "اسبريسو، رغوة",
+    ingredients_tr: "Espresso, Köpük",
+    ingredients_de: "Espresso, Schaum",
+    ingredients_ku: "ئێسپریسو، فۆم"
+  },
+
+  {
+    name_en: "Mocha",
+    name_ar: "موكا",
+    name_tr: "Mocha",
+    name_de: "Mokka",
+    name_ku: "مۆکا",
+    img: "mocha.png",
+    popup: "mocha-popup.png",
+    ingredients_en: "Espresso, Cocoa, Milk",
+    ingredients_ar: "اسبريسو، كاكاو، حليب",
+    ingredients_tr: "Espresso, Kakao, Süt",
+    ingredients_de: "Espresso, Kakao, Milch",
+    ingredients_ku: "ئێسپریسو، کاكاو، شیر"
+  },
+
+  {
+    name_en: "Iraqi Tea",
+    name_ar: "شاي عراقي",
+    name_tr: "Irak Çayı",
+    name_de: "Irakischer Tee",
+    name_ku: "چەی عێراقی",
+    img: "iraqitea.png",
+    popup: "iraqitea-popup.png",
+    ingredients_en: "Black tea, Cardamom, Sugar",
+    ingredients_ar: "شاي أسود، هيل، سكر",
+    ingredients_tr: "Siyah çay, Kakule, Şeker",
+    ingredients_de: "Schwarzer Tee, Kardamom, Zucker",
+    ingredients_ku: "چای ڕەش، هێل، شەکر"
+  }
+];
+
+
+const coldDrinks = [
+  {
+    name_en: "Iced Latte",
+    name_ar: "لاتيه مثلج",
+    name_tr: "Buzlu Latte",
+    name_de: "Iced Latte",
+    name_ku: "لاتێی سارد",
+    img: "icedlatte.png",
+    popup: "icedlatte-popup.png",
+    ingredients_en: "Espresso, Milk, Ice",
+    ingredients_ar: "اسبريسو، حليب، ثلج",
+    ingredients_tr: "Espresso, Süt, Buz",
+    ingredients_de: "Espresso, Milch, Eis",
+    ingredients_ku: "ئێسپریسو، شیر، بەفر"
+  },
+
+  {
+    name_en: "Cold Brew",
+    name_ar: "كولد برو",
+    name_tr: "Cold Brew",
+    name_de: "Cold Brew",
+    name_ku: "کۆلد برو",
+    img: "coldbrew.png",
+    popup: "coldbrew-popup.png",
+    ingredients_en: "Coffee beans, Cold water, Ice",
+    ingredients_ar: "حبوب القهوة، ماء بارد، ثلج",
+    ingredients_tr: "Kahve çekirdekleri, Soğuk su, Buz",
+    ingredients_de: "Kaffeebohnen, Kaltes Wasser, Eis",
+    ingredients_ku: "دانە قاوە، ئاوی سەرەد، بەفر"
+  },
+
+  {
+    name_en: "Frozen Caramel",
+    name_ar: "كراميل مثلج",
+    name_tr: "Karamelli Buzlu",
+    name_de: "Gefrorenes Karamell",
+    name_ku: "کارامێلی سارد",
+    img: "frozencaramel.png",
+    popup: "frozencaramel-popup.png",
+    ingredients_en: "Coffee, Caramel, Ice, Milk",
+    ingredients_ar: "قهوة، كراميل، ثلج، حليب",
+    ingredients_tr: "Kahve, Karamel, Buz, Süt",
+    ingredients_de: "Kaffee, Karamell, Eis, Milch",
+    ingredients_ku: "قاوە، کارامێل، بەفر، شیر"
+  },
+
+  {
+    name_en: "Water",
+    name_ar: "ماء",
+    name_tr: "Su",
+    name_de: "Wasser",
+    name_ku: "ئاو",
+    img: "water.png",
+    popup: "water-popup.png",
+    ingredients_en: "Fresh water",
+    ingredients_ar: "ماء نقي",
+    ingredients_tr: "Temiz su",
+    ingredients_de: "Frisches Wasser",
+    ingredients_ku: "ئاوی ساز"
+  }
+];
+
+
+/* POPULATE GRIDS */
+const hotGrid=document.getElementById('hotGrid');
+hotDrinks.forEach(d=>{
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<img src="${d.img}"><h3 class="hotName">${d.name}</h3>`;
+    div.onclick = ()=>showPopup(d);
+    hotGrid.appendChild(div);
+});
+const coldGrid=document.getElementById('coldGrid');
+coldDrinks.forEach(d=>{
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<img src="${d.img}"><h3 class="coldName">${d.name}</h3>`;
+    div.onclick = ()=>showPopup(d);
+    coldGrid.appendChild(div);
+});
+
+let lang = 'en';
+
+const translations = {
+    en: {
+        title: "Modern Engine Company",
+        subtitle: "Choose drink type",
+        hotBtn: "🔥 Hot",
+        coldBtn: "❄ Cold",
+        hotTitle: "🔥 Hot Drinks",
+        coldTitle: "❄ Cold Drinks",
+        drinkNamesHot: ['Espresso','Cappuccino','Latte','Hot Chocolate','Macchiato','Mocha','Iraqi Tea'],
+        drinkNamesCold: ['Iced Latte','Cold Brew','Frozen Caramel','Water']
+    },
+
+    ar: {
+        title: "شركة المحرك العصري",
+        subtitle: "اختر نوع المشروب",
+        hotBtn: "🔥 ساخن",
+        coldBtn: "❄ بارد",
+        hotTitle: "🔥 مشروبات ساخنة",
+        coldTitle: "❄ مشروبات باردة",
+        drinkNamesHot: ['اسبريسو','كابتشينو','لاتيه','هوت شوكولاتة','ماكياتو','موكا','شاي عراقي'],
+        drinkNamesCold: ['لاتيه مثلج','كولد برو','كراميل مثلج','ماء']
+    },
+
+    tr: {
+        title: "Modern Motor Şirketi",
+        subtitle: "İçecek türünü seçin",
+        hotBtn: "🔥 Sıcak",
+        coldBtn: "❄ Soğuk",
+        hotTitle: "🔥 Sıcak İçecekler",
+        coldTitle: "❄ Soğuk İçecekler",
+        drinkNamesHot: ['Espresso','Cappuccino','Latte','Sıcak Çikolata','Macchiato','Mocha','Irak Çayı'],
+        drinkNamesCold: ['Buzlu Latte','Cold Brew','Karamelli Buzlu','Su']
+    },
+
+    de: {
+        title: "Moderne Motorfirma",
+        subtitle: "Wähle die Getränkart",
+        hotBtn: "🔥 Heiß",
+        coldBtn: "❄ Kalt",
+        hotTitle: "🔥 Heiße Getränke",
+        coldTitle: "❄ Kalte Getränke",
+        drinkNamesHot: ['Espresso','Cappuccino','Latte','Heiße Schokolade','Macchiato','Mocha','Irakischer Tee'],
+        drinkNamesCold: ['Iced Latte','Cold Brew','Gefrorenes Karamell','Wasser']
+    },
+
+ku: {
+    title: "کۆمپانیای موتورێکی نوێ",
+    subtitle: "جۆری خواردنەوە هەڵبژێرە",
+    hotBtn: "🔥 گـرم",
+    coldBtn: "❄ سـارد",
+    hotTitle: "🔥 خواردنەوە گـەرم",
+    coldTitle: "❄ خواردنەوە سـارد",
+    drinkNamesHot: ['ئێسپریسو','کاپوچینو','لاتێ','چۆکلیت گـەرم','ماکیاتو','مۆکا','چەی عێراقی'],
+    drinkNamesCold: ['لاتێی سارد','کۆلد برو','کارامێلی سارد','ئاو']
+}
+};
+
+function setLanguage(l) {
+    lang = l;
+
+    // Hide language page → show home
+    document.getElementById('languagePage').style.display = 'none';
+    document.getElementById('home').style.display = 'block';
+
+    updateLanguageUI();
+}
+
+function updateLanguageUI() {
+    const t = translations[lang];
+
+    document.getElementById('title').innerText = t.title;
+    document.getElementById('subtitle').innerText = t.subtitle;
+    document.getElementById('hotBtn').innerText = t.hotBtn;
+    document.getElementById('coldBtn').innerText = t.coldBtn;
+    document.getElementById('hotTitle').innerText = t.hotTitle;
+    document.getElementById('coldTitle').innerText = t.coldTitle;
+
+    // Update drink names
+    hotGrid.querySelectorAll('.hotName').forEach((el,i)=>{ el.innerText = t.drinkNamesHot[i]; });
+    coldGrid.querySelectorAll('.coldName').forEach((el,i)=>{ el.innerText = t.drinkNamesCold[i]; });
+
+    // Direction support
+document.body.style.direction = (lang === 'ar' || lang === 'ku') ? 'rtl' : 'ltr';
+}
+/* PAGE SWITCHER */
+function showPage(pageId){
+    document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+    document.getElementById(pageId).style.display='block';
+    if(pageId==='coldPage') startSnow();
+    if(pageId==='hotPage') startParticles();
 }
 
 /* SNOW EFFECT */
-function startSnow() {
-    stopSnow(); // reset snow when re-entering
-
-    for (let i = 0; i < 25; i++) {
-        let s = document.createElement("div");
-        s.classList.add("snowflake");
-        s.innerHTML = "❄";
-        s.style.left = Math.random() * 100 + "vw";
-        s.style.animationDuration = 3 + Math.random() * 3 + "s";
-        s.style.fontSize = 14 + Math.random() * 16 + "px";
-        s.style.transform = `translateX(${Math.random()*20 - 10}px)`;
+let snowInterval;
+function startSnow(){
+    stopSnow();
+    snowInterval=setInterval(()=>{
+        let s=document.createElement('div');
+        s.className='snowflake';
+        s.innerText='❄';
+        s.style.left=Math.random()*100+'vw';
+        s.style.fontSize=12+Math.random()*16+'px';
+        s.style.animationDuration=4+Math.random()*4+'s';
         document.body.appendChild(s);
-    }
+        setTimeout(()=>s.remove(),8000);
+    },200);
+}
+function stopSnow(){ clearInterval(snowInterval); document.querySelectorAll('.snowflake').forEach(f=>f.remove()); }
+
+/* HOT PARTICLES */
+let particleInterval;
+function startParticles(){
+    stopParticles();
+    const container=document.getElementById('hotParticles');
+    particleInterval=setInterval(()=>{
+        const p=document.createElement('div');
+        p.className='hotParticle';
+        p.style.left=Math.random()*100+'%';
+        p.style.top='80%';
+        p.style.width=5+Math.random()*10+'px';
+        p.style.height=p.style.width;
+        container.appendChild(p);
+        setTimeout(()=>p.remove(),5000);
+    },200);
+}
+function stopParticles(){ clearInterval(particleInterval); document.querySelectorAll('.hotParticle').forEach(p=>p.remove()); }
+
+function showPopup(drink){
+    const ing = drink[`ingredients_${lang}`] || drink.ingredients_en;
+    document.getElementById('popupIngredients').innerText = ing;
+
+    document.getElementById('popupImg').src = drink.popup;
+document.getElementById('popupName').innerText = drink[`name_${lang}`];
+
+    document.getElementById('popup').style.display = 'flex';
 }
 
-function stopSnow() {
-    document.querySelectorAll(".snowflake").forEach(f => f.remove());
+function closePopup(){
+    document.getElementById('popup').style.display = 'none';
+    document.body.style.overflow = 'auto'; // allow scroll again
+}
+
+function translate(name){
+    const map={'Espresso':'اسبريسو','Cappuccino':'كابتشينو','Latte':'لاتيه','Hot Chocolate':'هوت شوكولاتة','Macchiato':'ماكياتو','Mocha':'موكا','Iraqi Tea':'شاي عراقي','Iced Latte':'لاتيه مثلج','Cold Brew':'كولد برو','Frozen Caramel':'كراميل مثلج','Water':'ماء'};
+    return map[name]||name;
 }
 </script>
 
 </body>
 </html>
-
