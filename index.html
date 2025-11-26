@@ -17,6 +17,8 @@ body {
     overflow: hidden; /* منع التمرير العام */
 }
 
+
+
 /* ========== BUTTONS ========== */
 .btn {
     padding: 14px 28px;
@@ -204,10 +206,40 @@ body {
     .menu-title { font-size: 22px; }
     #popup .popup-content { width: 90%; padding: 12px; }
 }
+
+#footerContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between; /* عنصر يسار وعنصر يمين */
+    align-items: center;
+    font-size: 14px;
+    color: #aaa;
+    z-index: 10000;
+}
+
+#leftFooter {
+    flex: 0 0 auto; /* ثابت على اليسار */
+}
+
+#rightFooter {
+    flex: 0 0 auto; /* ثابت على اليمين */
+}
+
 </style>
 </head>
 <body>
 
+
+<div id="footerContainer">
+    <div id="leftFooter">Abdulazeez Thamer</div>
+    <div id="rightFooter">MEC 2025©</div>
+
+</div>
 
 <!-- LANGUAGE PAGE (FIXED & CLEAN) -->
 <div id="languagePage" class="page" style="display:block; padding-top:120px; text-align:center;">
@@ -220,7 +252,7 @@ body {
     </button>
 
     <button class="btn" onclick="setLanguage('ar')">
-        <img src="https://flagcdn.com/w40/sa.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
+        <img src="https://flagcdn.com/w40/iq.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
         العربية
     </button>
 
