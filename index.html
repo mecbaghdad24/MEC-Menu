@@ -14,6 +14,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
+    overflow: hidden; /* منع التمرير العام */
 }
 
 /* ========== BUTTONS ========== */
@@ -49,6 +50,13 @@ body {
     padding: 40px 20px;
     min-height: 100vh;
     box-sizing: border-box;
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; /* للتمرير السلس على الهواتف */
+    max-height: 100vh; /* لا تسمح للصفحة بالتجاوز */
+ border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    margin: 10px auto; /* مسافة صغيرة من حواف الشاشة */
+    overflow: hidden;
 }
 .page.active {
     display: block;
@@ -566,11 +574,26 @@ function updateLanguageUI() {
 document.body.style.direction = (lang === 'ar' || lang === 'ku') ? 'rtl' : 'ltr';
 }
 /* PAGE SWITCHER */
-function showPage(pageId){
-    document.querySelectorAll('.page').forEach(p=>p.style.display='none');
-    document.getElementById(pageId).style.display='block';
-    if(pageId==='coldPage') startSnow();
-    if(pageId==='hotPage') startParticles();
+function showPage(pageId) {
+    // إيقاف كل التأثيرات قبل إظهار الصفحة الجديدة
+    stopSnow();
+    stopParticles();
+    
+    // إخفاء جميع الصفحات
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    
+    // إظهار الصفحة المطلوبة
+    const page = document.getElementById(pageId);
+    page.style.display = 'block';
+    
+    // تشغيل التأثيرات إذا كانت الصفحة تحتويها
+    if (pageId === 'coldPage') startSnow();
+    if (pageId === 'hotPage') startParticles();
+    
+    // التمرير العمودي فقط داخل الصفحة
+    document.body.style.overflow = 'hidden'; // منع التمرير العام
+    page.style.overflowY = 'auto';
+    page.style.webkitOverflowScrolling = 'touch'; // للتمرير السلس على الهواتف
 }
 
 /* SNOW EFFECT */
@@ -643,15 +666,31 @@ document.addEventListener('touchend', (e) => {
     const diffX = touchEndX - touchStartX;
     const diffY = touchEndY - touchStartY;
 
-    // فقط إذا كانت الحركة أفقية أكبر من 50px وأكبر من الحركة الرأسية
+    // السحب يجب أن يكون أفقي أكبر من 50px وأكبر من الفارق الرأسي
     if(Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-        if(diffX < 0){ // سحب لليسار
-            // اذهب للصفحة السابقة أو الصفحة الرئيسية
-            showPage('home');
+        // تحقق أن الصفحة الحالية هي hotPage أو coldPage
+        const hotVisible = document.getElementById('hotPage').style.display === 'block';
+        const coldVisible = document.getElementById('coldPage').style.display === 'block';
+
+        if(hotVisible || coldVisible){
+            if(diffX > 0){ // سحب من اليسار إلى اليمين للرجوع
+                // إذا كان popup مفتوح، أغلقه فقط
+                const popup = document.getElementById('popup');
+                if(popup.style.display === 'flex'){
+                    closePopup();
+                    return; // لا نرجع للصفحة بعد إغلاق البوب اب
+                }
+
+                // أوقف أي تأثيرات
+                stopSnow();
+                stopParticles();
+
+                // ارجع للصفحة الرئيسية
+                showPage('home');
+            }
         }
     }
 }, {passive:true});
-
 </script>
 
 </body>
