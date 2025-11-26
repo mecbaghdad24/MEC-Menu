@@ -214,22 +214,19 @@ body {
     width: 100%;
     background: rgba(0,0,0,0.7);
     padding: 8px 20px;
-    display: flex;
-    justify-content: space-between; /* عنصر يسار وعنصر يمين */
-    align-items: center;
     font-size: 14px;
     color: #aaa;
     z-index: 10000;
+    display: flex;
+    justify-content: center; /* كل المحتوى في الوسط */
+    gap: 100px; /* المسافة بين العناصر */
+    direction: ltr !important; /* اجبار جميع النصوص على LTR مهما كانت لغة الصفحة */
 }
 
-#leftFooter {
-    flex: 0 0 auto; /* ثابت على اليسار */
-}
-
+#leftFooter,
 #rightFooter {
-    flex: 0 0 auto; /* ثابت على اليمين */
+    white-space: nowrap; /* منع كسر النص */
 }
-
 </style>
 </head>
 <body>
