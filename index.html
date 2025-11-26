@@ -186,6 +186,11 @@ body {
 
 /* ========== MOBILE FIXES ========== */
 @media(max-width:600px){
+ body {
+        overflow-x: hidden; /* منع التمرير الأفقي */
+        overflow-y: auto;   /* السماح بالتمرير العمودي */
+        touch-action: pan-y; /* السماح بالتمرير العمودي فقط */
+    }
     .btn { font-size: 16px; padding: 12px 20px; }
     .item img { height: 120px; }
     .menu-title { font-size: 22px; }
@@ -199,7 +204,7 @@ body {
 <!-- LANGUAGE PAGE (FIXED & CLEAN) -->
 <div id="languagePage" class="page" style="display:block; padding-top:120px; text-align:center;">
 
-    <h1 style="font-size:40px; margin-bottom:30px;">Modern Engine Company</h1>
+    <h1 style="font-size:40px; margin-bottom:30px;">Modern Engine Compnay Menu</h1>
 
     <button class="btn" onclick="setLanguage('en')">
         <img src="https://flagcdn.com/w40/gb.png" style="width:35px; vertical-align:middle; border-radius:6px; margin-right:8px;">
@@ -622,8 +627,32 @@ function translate(name){
     const map={'Espresso':'اسبريسو','Cappuccino':'كابتشينو','Latte':'لاتيه','Hot Chocolate':'هوت شوكولاتة','Macchiato':'ماكياتو','Mocha':'موكا','Iraqi Tea':'شاي عراقي','Iced Latte':'لاتيه مثلج','Cold Brew':'كولد برو','Frozen Caramel':'كراميل مثلج','Water':'ماء'};
     return map[name]||name;
 }
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, {passive:true});
+
+document.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+
+    // فقط إذا كانت الحركة أفقية أكبر من 50px وأكبر من الحركة الرأسية
+    if(Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+        if(diffX < 0){ // سحب لليسار
+            // اذهب للصفحة السابقة أو الصفحة الرئيسية
+            showPage('home');
+        }
+    }
+}, {passive:true});
+
 </script>
 
 </body>
 </html>
-
