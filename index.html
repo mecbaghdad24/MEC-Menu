@@ -158,7 +158,6 @@ body {
 /* ========== HOT EFFECTS ========== */
 #hotPage { background: linear-gradient(180deg, #8d1a00, #220000); overflow:hidden; }
 .steam, .hotParticle { position:absolute; pointer-events:none; }
-.steam { width:80px; height:140px; background:url('https://i.imgur.com/Um4n9G5.png') center/contain no-repeat; animation:steamRise 4s infinite ease-in-out; opacity:0.6; filter: blur(3px);}
 @keyframes steamRise {0% {transform:translateY(20px) scale(0.8);opacity:0.4;} 50% {transform:translateY(-40px) scale(1.1);opacity:1;} 100% {transform:translateY(20px) scale(0.8);opacity:0.4;} }
 
 .hotParticle { width:10px; height:10px; background:rgba(255,200,50,0.6); border-radius:50%; animation:particleRise 5s linear infinite; }
@@ -325,7 +324,6 @@ document.addEventListener("touchstart",()=>{const music=document.getElementById(
 
 <!-- COLD PAGE -->
 <div id="coldPage" class="page">
-    <img class="windmill" src="https://i.imgur.com/uCq5osG.png">
     <h1 class="menu-title" id="coldTitle">❄ Cold Drinks</h1>
     <div class="grid" id="coldGrid"></div>
     <button class="btn back-btn" onclick="stopSnow(); showPage('home')">⬅</button>
